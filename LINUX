@@ -1,4 +1,12 @@
 centos7 yum源更新
-1.rpm -Uvh --force http://mirror.centos.org/centos-7/7/os/x86_64/Packages/centos-release-7-9.2009.0.el7.centos.x86_64.rpm
-2.yum clean all
-3.yum makecache
+yum -list >./1
+yum -y upgrade 
+yum -list >./2
+diff ./1 ./2
+cd /etc/yum.repos.d/ #删除所有
+rpm -Uvh --force http://mirror.centos.org/centos-7/7/os/x86_64/Packages/centos-release-7-9.2009.0.el7.centos.x86_64.rpm
+yum clean all
+yum makecache
+yum -y upgrade
+yum -list >./3
+diff3 ./1 ./2 ./3
