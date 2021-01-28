@@ -1,4 +1,4 @@
-centos7 yum源更新
+UPGRADE THE YUMREPO TO THE LAST NEW
 yum -list >./1
 yum -y upgrade 
 yum -list >./2
@@ -10,3 +10,114 @@ yum makecache
 yum -y upgrade
 yum -list >./3
 diff3 ./1 ./2 ./3
+
+INSTSLL EPEL 
+Extra Packages for Enterprise Linux (EPEL) https://fedoraproject.org/wiki/EPEL
+yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
+INSTALL DOCKER ENGINE ON CENTOS
+
+UNINSTALL OLD VERSIONS
+[root@VM-4-15-centos yumupdate]# yum remove docker \
+>                   docker-client \
+>                   docker-client-latest \
+>                   docker-common \
+>                   docker-latest \
+>                   docker-latest-logrotate \
+>                   docker-logrotate \
+>                   docker-engine
+Loaded plugins: fastestmirror, langpacks
+Repository base is listed more than once in the configuration
+Repository extras is listed more than once in the configuration
+Repository centosplus is listed more than once in the configuration
+Repository epel is listed more than once in the configuration
+No Match for argument: docker
+No Match for argument: docker-client
+No Match for argument: docker-client-latest
+No Match for argument: docker-common
+No Match for argument: docker-latest
+No Match for argument: docker-latest-logrotate
+No Match for argument: docker-logrotate
+No Match for argument: docker-engine
+No Packages marked for removal
+
+SET UP THE REPOSITORY
+Install the yum-utils package (which provides the yum-config-manager utility) and set up the stable repository.
+sudo yum install -y yum-utils
+sudo yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+
+OPTIONAL:ENABLE THE NIGHTLY OR TEST REPOSITORIES
+These repositories are included in the docker.repo file above but are disabled by default. You can enable them alongside the stable repository. The following command enables the nightly repository.
+
+$ sudo yum-config-manager --enable docker-ce-nightly
+To enable the test channel, run the following command:
+
+$ sudo yum-config-manager --enable docker-ce-test
+You can disable the nightly or test repository by running the yum-config-manager command with the --disable flag. To re-enable it, use the --enable flag. The following command disables the nightly repository.
+
+$ sudo yum-config-manager --disable docker-ce-nightly
+
+sudo yum-config-manager --enable docker-ce-stable
+sudo yum install docker-ce docker-ce-cli containerd.io
+ERROR CURRENT
+Loaded plugins: fastestmirror, langpacks
+Repository base is listed more than once in the configuration
+Repository extras is listed more than once in the configuration
+Repository centosplus is listed more than once in the configuration
+Repository epel is listed more than once in the configuration
+Loading mirror speeds from cached hostfile
+ * updates: centosmirror.netcup.net
+docker-ce-stable                                                                                                                                                                                                                                                                                                                                  | 3.5 kB  00:00:00     
+(1/2): docker-ce-stable/7/x86_64/updateinfo                                                                                                                                                                                                                                                                                                       |   55 B  00:00:00     
+(2/2): docker-ce-stable/7/x86_64/primary_db                                                                                                                                                                                                                                                                                                       |  52 kB  00:00:00     
+Resolving Dependencies
+--> Running transaction check
+---> Package containerd.io.x86_64 0:1.4.3-3.1.el7 will be installed
+--> Processing Dependency: container-selinux >= 2:2.74 for package: containerd.io-1.4.3-3.1.el7.x86_64
+---> Package docker-ce.x86_64 3:20.10.2-3.el7 will be installed
+--> Processing Dependency: container-selinux >= 2:2.74 for package: 3:docker-ce-20.10.2-3.el7.x86_64
+--> Processing Dependency: docker-ce-rootless-extras for package: 3:docker-ce-20.10.2-3.el7.x86_64
+--> Processing Dependency: iptables for package: 3:docker-ce-20.10.2-3.el7.x86_64
+--> Processing Dependency: libcgroup for package: 3:docker-ce-20.10.2-3.el7.x86_64
+---> Package docker-ce-cli.x86_64 1:20.10.2-3.el7 will be installed
+--> Running transaction check
+---> Package containerd.io.x86_64 0:1.4.3-3.1.el7 will be installed
+--> Processing Dependency: container-selinux >= 2:2.74 for package: containerd.io-1.4.3-3.1.el7.x86_64
+---> Package docker-ce.x86_64 3:20.10.2-3.el7 will be installed
+--> Processing Dependency: container-selinux >= 2:2.74 for package: 3:docker-ce-20.10.2-3.el7.x86_64
+---> Package docker-ce-rootless-extras.x86_64 0:20.10.2-3.el7 will be installed
+--> Processing Dependency: fuse-overlayfs >= 0.7 for package: docker-ce-rootless-extras-20.10.2-3.el7.x86_64
+--> Processing Dependency: slirp4netns >= 0.4 for package: docker-ce-rootless-extras-20.10.2-3.el7.x86_64
+---> Package iptables.x86_64 0:1.4.21-18.2.el7_4 will be installed
+---> Package libcgroup.x86_64 0:0.41-13.el7 will be installed
+--> Finished Dependency Resolution
+Error: Package: containerd.io-1.4.3-3.1.el7.x86_64 (docker-ce-stable)
+           Requires: container-selinux >= 2:2.74
+           Available: 2:container-selinux-2.21-1.el7.noarch (extras)
+               container-selinux = 2:2.21-1.el7
+           Available: 2:container-selinux-2.21-2.gitba103ac.el7.noarch (extras)
+               container-selinux = 2:2.21-2.gitba103ac.el7
+           Available: 2:container-selinux-2.28-1.git85ce147.el7.noarch (extras)
+               container-selinux = 2:2.28-1.git85ce147.el7
+           Available: 2:container-selinux-2.33-1.git86f33cd.el7.noarch (extras)
+               container-selinux = 2:2.33-1.git86f33cd.el7
+Error: Package: docker-ce-rootless-extras-20.10.2-3.el7.x86_64 (docker-ce-stable)
+           Requires: fuse-overlayfs >= 0.7
+Error: Package: docker-ce-rootless-extras-20.10.2-3.el7.x86_64 (docker-ce-stable)
+           Requires: slirp4netns >= 0.4
+Error: Package: 3:docker-ce-20.10.2-3.el7.x86_64 (docker-ce-stable)
+           Requires: container-selinux >= 2:2.74
+           Available: 2:container-selinux-2.21-1.el7.noarch (extras)
+               container-selinux = 2:2.21-1.el7
+           Available: 2:container-selinux-2.21-2.gitba103ac.el7.noarch (extras)
+               container-selinux = 2:2.21-2.gitba103ac.el7
+           Available: 2:container-selinux-2.28-1.git85ce147.el7.noarch (extras)
+               container-selinux = 2:2.28-1.git85ce147.el7
+           Available: 2:container-selinux-2.33-1.git86f33cd.el7.noarch (extras)
+               container-selinux = 2:2.33-1.git86f33cd.el7
+ You could try using --skip-broken to work around the problem
+** Found 1 pre-existing rpmdb problem(s), 'yum check' output follows:
+iproute-4.11.0-25.el7_7.2.x86_64 has missing requires of libxtables.so.10()(64bit)
+
