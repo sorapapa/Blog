@@ -122,3 +122,137 @@ Error: Package: 3:docker-ce-20.10.2-3.el7.x86_64 (docker-ce-stable)
 ** Found 1 pre-existing rpmdb problem(s), 'yum check' output follows:
 iproute-4.11.0-25.el7_7.2.x86_64 has missing requires of libxtables.so.10()(64bit)
 
+FIND THE CONTAINER-SELINUX PACKAGE
+http://mirror.centos.org/centos-7/7/extras/x86_64/Packages/
+
+[root@VM-4-15-centos ~]# wget http://mirror.centos.org/centos-7/7/extras/x86_64/Packages/container-selinux-2.119.2-1.911c772.el7_8.noarch.rpm
+--2021-01-29 08:26:31--  http://mirror.centos.org/centos-7/7/extras/x86_64/Packages/container-selinux-2.119.2-1.911c772.el7_8.noarch.rpm
+Resolving mirror.centos.org (mirror.centos.org)... 198.16.88.130, 2a05:b80:0:348::10
+Connecting to mirror.centos.org (mirror.centos.org)|198.16.88.130|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 40816 (40K) [application/x-rpm]
+Saving to: ‘container-selinux-2.119.2-1.911c772.el7_8.noarch.rpm’
+
+100%[===============================================================================================================================================================>] 40,816      --.-K/s   in 0.007s  
+
+2021-01-29 08:26:31 (5.22 MB/s) - ‘container-selinux-2.119.2-1.911c772.el7_8.noarch.rpm’ saved [40816/40816]
+
+[root@VM-4-15-centos ~]# ls
+container-selinux-2.119.2-1.911c772.el7_8.noarch.rpm  ip_list.txt  pxe_install.log  write_cmdb.py
+[root@VM-4-15-centos ~]# rpm -ivh container-selinux-2.119.2-1.911c772.el7_8.noarch.rpm 
+error: Failed dependencies:
+	policycoreutils-python is needed by container-selinux-2:2.119.2-1.911c772.el7_8.noarch
+[root@VM-4-15-centos ~]# yum -y install policycoreutils-python
+Loaded plugins: fastestmirror, langpacks
+Repository base is listed more than once in the configuration
+Repository extras is listed more than once in the configuration
+Repository centosplus is listed more than once in the configuration
+Loading mirror speeds from cached hostfile
+ * updates: de.mirrors.clouvider.net
+Resolving Dependencies
+--> Running transaction check
+---> Package policycoreutils-python.x86_64 0:2.5-17.1.el7 will be installed
+--> Processing Dependency: policycoreutils = 2.5-17.1.el7 for package: policycoreutils-python-2.5-17.1.el7.x86_64
+--> Processing Dependency: setools-libs >= 3.3.8-1 for package: policycoreutils-python-2.5-17.1.el7.x86_64
+--> Processing Dependency: libsemanage-python >= 2.5-5 for package: policycoreutils-python-2.5-17.1.el7.x86_64
+--> Processing Dependency: audit-libs-python >= 2.1.3-4 for package: policycoreutils-python-2.5-17.1.el7.x86_64
+--> Processing Dependency: python-IPy for package: policycoreutils-python-2.5-17.1.el7.x86_64
+--> Processing Dependency: libqpol.so.1(VERS_1.4)(64bit) for package: policycoreutils-python-2.5-17.1.el7.x86_64
+--> Processing Dependency: libqpol.so.1(VERS_1.2)(64bit) for package: policycoreutils-python-2.5-17.1.el7.x86_64
+--> Processing Dependency: libcgroup for package: policycoreutils-python-2.5-17.1.el7.x86_64
+--> Processing Dependency: libapol.so.4(VERS_4.0)(64bit) for package: policycoreutils-python-2.5-17.1.el7.x86_64
+--> Processing Dependency: checkpolicy for package: policycoreutils-python-2.5-17.1.el7.x86_64
+--> Processing Dependency: libqpol.so.1()(64bit) for package: policycoreutils-python-2.5-17.1.el7.x86_64
+--> Processing Dependency: libapol.so.4()(64bit) for package: policycoreutils-python-2.5-17.1.el7.x86_64
+--> Running transaction check
+---> Package audit-libs-python.x86_64 0:2.7.6-3.el7 will be installed
+--> Processing Dependency: audit-libs(x86-64) = 2.7.6-3.el7 for package: audit-libs-python-2.7.6-3.el7.x86_64
+---> Package checkpolicy.x86_64 0:2.5-4.el7 will be installed
+---> Package libcgroup.x86_64 0:0.41-13.el7 will be installed
+---> Package libsemanage-python.x86_64 0:2.5-8.el7 will be installed
+--> Processing Dependency: libsemanage = 2.5-8.el7 for package: libsemanage-python-2.5-8.el7.x86_64
+---> Package policycoreutils-python.x86_64 0:2.5-17.1.el7 will be installed
+--> Processing Dependency: policycoreutils = 2.5-17.1.el7 for package: policycoreutils-python-2.5-17.1.el7.x86_64
+---> Package python-IPy.noarch 0:0.75-6.el7 will be installed
+---> Package setools-libs.x86_64 0:3.3.8-1.1.el7 will be installed
+--> Running transaction check
+---> Package audit-libs-python.x86_64 0:2.7.6-3.el7 will be installed
+--> Processing Dependency: audit-libs(x86-64) = 2.7.6-3.el7 for package: audit-libs-python-2.7.6-3.el7.x86_64
+---> Package libsemanage.i686 0:2.5-8.el7 will be installed
+--> Processing Dependency: libustr-1.0.so.1(USTR_1.0.1) for package: libsemanage-2.5-8.el7.i686
+--> Processing Dependency: libustr-1.0.so.1(USTR_1.0) for package: libsemanage-2.5-8.el7.i686
+--> Processing Dependency: libustr-1.0.so.1 for package: libsemanage-2.5-8.el7.i686
+--> Processing Dependency: libsepol.so.1(LIBSEPOL_1.1) for package: libsemanage-2.5-8.el7.i686
+--> Processing Dependency: libsepol.so.1(LIBSEPOL_1.0) for package: libsemanage-2.5-8.el7.i686
+--> Processing Dependency: libsepol.so.1 for package: libsemanage-2.5-8.el7.i686
+--> Processing Dependency: libselinux.so.1 for package: libsemanage-2.5-8.el7.i686
+--> Processing Dependency: libc.so.6(GLIBC_2.8) for package: libsemanage-2.5-8.el7.i686
+--> Processing Dependency: libbz2.so.1 for package: libsemanage-2.5-8.el7.i686
+--> Processing Dependency: libaudit.so.1 for package: libsemanage-2.5-8.el7.i686
+---> Package policycoreutils-python.x86_64 0:2.5-17.1.el7 will be installed
+--> Processing Dependency: policycoreutils = 2.5-17.1.el7 for package: policycoreutils-python-2.5-17.1.el7.x86_64
+--> Running transaction check
+---> Package audit-libs.i686 0:2.7.6-3.el7 will be installed
+--> Processing Dependency: libcap-ng.so.0 for package: audit-libs-2.7.6-3.el7.i686
+---> Package audit-libs-python.x86_64 0:2.7.6-3.el7 will be installed
+--> Processing Dependency: audit-libs(x86-64) = 2.7.6-3.el7 for package: audit-libs-python-2.7.6-3.el7.x86_64
+---> Package bzip2-libs.i686 0:1.0.6-13.el7 will be installed
+---> Package glibc.i686 0:2.17-196.el7_4.2 will be installed
+--> Processing Dependency: glibc-common = 2.17-196.el7_4.2 for package: glibc-2.17-196.el7_4.2.i686
+--> Processing Dependency: libfreebl3.so(NSSRAWHASH_3.12.3) for package: glibc-2.17-196.el7_4.2.i686
+--> Processing Dependency: libfreebl3.so for package: glibc-2.17-196.el7_4.2.i686
+---> Package libselinux.i686 0:2.5-11.el7 will be installed
+--> Processing Dependency: libpcre.so.1 for package: libselinux-2.5-11.el7.i686
+---> Package libsepol.i686 0:2.5-6.el7 will be installed
+---> Package policycoreutils-python.x86_64 0:2.5-17.1.el7 will be installed
+--> Processing Dependency: policycoreutils = 2.5-17.1.el7 for package: policycoreutils-python-2.5-17.1.el7.x86_64
+---> Package ustr.i686 0:1.0.4-16.el7 will be installed
+--> Running transaction check
+---> Package audit-libs-python.x86_64 0:2.7.6-3.el7 will be installed
+--> Processing Dependency: audit-libs(x86-64) = 2.7.6-3.el7 for package: audit-libs-python-2.7.6-3.el7.x86_64
+---> Package glibc.i686 0:2.17-196.el7_4.2 will be installed
+--> Processing Dependency: glibc-common = 2.17-196.el7_4.2 for package: glibc-2.17-196.el7_4.2.i686
+---> Package libcap-ng.i686 0:0.7.5-4.el7 will be installed
+---> Package nss-softokn-freebl.i686 0:3.53.1-6.el7_9 will be installed
+---> Package pcre.i686 0:8.32-17.el7 will be installed
+--> Processing Dependency: libstdc++.so.6(GLIBCXX_3.4.9) for package: pcre-8.32-17.el7.i686
+--> Processing Dependency: libstdc++.so.6(GLIBCXX_3.4) for package: pcre-8.32-17.el7.i686
+--> Processing Dependency: libstdc++.so.6(CXXABI_1.3) for package: pcre-8.32-17.el7.i686
+--> Processing Dependency: libstdc++.so.6 for package: pcre-8.32-17.el7.i686
+--> Processing Dependency: libgcc_s.so.1(GCC_3.0) for package: pcre-8.32-17.el7.i686
+--> Processing Dependency: libgcc_s.so.1 for package: pcre-8.32-17.el7.i686
+---> Package policycoreutils-python.x86_64 0:2.5-17.1.el7 will be installed
+--> Processing Dependency: policycoreutils = 2.5-17.1.el7 for package: policycoreutils-python-2.5-17.1.el7.x86_64
+--> Running transaction check
+---> Package audit-libs-python.x86_64 0:2.7.6-3.el7 will be installed
+--> Processing Dependency: audit-libs(x86-64) = 2.7.6-3.el7 for package: audit-libs-python-2.7.6-3.el7.x86_64
+---> Package glibc.i686 0:2.17-196.el7_4.2 will be installed
+--> Processing Dependency: glibc-common = 2.17-196.el7_4.2 for package: glibc-2.17-196.el7_4.2.i686
+---> Package libgcc.i686 0:4.8.5-16.el7_4.1 will be installed
+---> Package libstdc++.i686 0:4.8.5-16.el7_4.1 will be installed
+---> Package policycoreutils-python.x86_64 0:2.5-17.1.el7 will be installed
+--> Processing Dependency: policycoreutils = 2.5-17.1.el7 for package: policycoreutils-python-2.5-17.1.el7.x86_64
+--> Finished Dependency Resolution
+Error: Package: audit-libs-python-2.7.6-3.el7.x86_64 (base)
+           Requires: audit-libs(x86-64) = 2.7.6-3.el7
+           Installed: audit-libs-2.8.5-4.el7.x86_64 (@os)
+               audit-libs(x86-64) = 2.8.5-4.el7
+           Available: audit-libs-2.7.6-3.el7.x86_64 (base)
+               audit-libs(x86-64) = 2.7.6-3.el7
+Error: Package: glibc-2.17-196.el7_4.2.i686 (contrib)
+           Requires: glibc-common = 2.17-196.el7_4.2
+           Installed: glibc-common-2.17-307.el7.1.x86_64 (@os)
+               glibc-common = 2.17-307.el7.1
+           Available: glibc-common-2.17-196.el7.x86_64 (base)
+               glibc-common = 2.17-196.el7
+           Available: glibc-common-2.17-196.el7_4.2.x86_64 (contrib)
+               glibc-common = 2.17-196.el7_4.2
+Error: Package: policycoreutils-python-2.5-17.1.el7.x86_64 (base)
+           Requires: policycoreutils = 2.5-17.1.el7
+           Installed: policycoreutils-2.5-34.el7.x86_64 (@os)
+               policycoreutils = 2.5-34.el7
+           Available: policycoreutils-2.5-17.1.el7.x86_64 (base)
+               policycoreutils = 2.5-17.1.el7
+ You could try using --skip-broken to work around the problem
+** Found 1 pre-existing rpmdb problem(s), 'yum check' output follows:
+iproute-4.11.0-25.el7_7.2.x86_64 has missing requires of libxtables.so.10()(64bit)
